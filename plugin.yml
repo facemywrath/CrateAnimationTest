@@ -1,0 +1,5 @@
+name: CrateAnimationTest
+main: facemywrath.cat.main.Main
+author: facemywrath
+version: 1.0
+api-version: 1.13
