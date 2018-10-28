@@ -11,6 +11,7 @@ public class Animation<T> {
     private Main main;
     private Boolean looping = false;
     private Long loopDelay = 1L;
+    private List<T> running = new ArrayList<>();
 
     public Animation(Main main) {
         this.main = main;
@@ -27,7 +28,13 @@ public class Animation<T> {
     }
 
     public void animate(T object) {
+    	running.add(object);
         run(object, 0, 1);
+    }
+    
+    public boolean isRunning(T object)
+    {
+    	return running.contains(object);
     }
 
     public Animation setLooping(Boolean looping) {
@@ -51,6 +58,7 @@ public class Animation<T> {
         if (i >= frames.size()) {
             if (looping)
                 main.getServer().getScheduler().runTaskLater(main, () -> animate(object), loopDelay);
+            running.remove(object);
             return;
         }
         Frame frame = frames.get(i);

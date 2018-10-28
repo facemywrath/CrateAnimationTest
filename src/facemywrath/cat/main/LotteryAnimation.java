@@ -63,7 +63,7 @@ public class LotteryAnimation extends Animation<Inventory> {
 			HashMap<Material, Integer> amounts = new HashMap<>();
 			for(int i = 38; i < 43; i++)
 			{
-				if(inv.getItem(i) != null && inv.getItem(i).getType() != Material.AIR)
+				if(inv.getItem(i) != null && inv.getItem(i).getType() != Material.AIR && !inv.getItem(i).getType().toString().contains("STAINED_GLASS_PANE"))
 				{
 					Material mat = inv.getItem(i).getType();
 					if(amounts.containsKey(mat))
@@ -83,7 +83,10 @@ public class LotteryAnimation extends Animation<Inventory> {
 
 	private ItemStack getRandomItem()
 	{
-		return new ItemStack(getRandomMaterial(), getWeightedAmount());
+		Material mat = getRandomMaterial();
+		ItemCreator item = new ItemCreator(mat).amount(mat.toString().contains("STAINED_GLASS_PANE")?1:getWeightedAmount());
+		if(mat.toString().contains("STAINED_GLASS_PANE"))item.name(" ");
+		return item.build();
 	}
 	
 	private int getWeightedAmount()
@@ -106,7 +109,7 @@ public class LotteryAnimation extends Animation<Inventory> {
 		if(i < 25) return Material.IRON_INGOT;
 		if(i < 40) return Material.COAL;
 		if(i < 60) return Material.COBBLESTONE;
-		if(i < 96) return Material.AIR;
+		if(i < 96) return Material.WHITE_STAINED_GLASS_PANE;
 		if(i < 97) return Material.IRON_BLOCK;
 		if(i < 98) return Material.GOLD_BLOCK;
 		if(i < 99) return Material.DIAMOND_BLOCK;

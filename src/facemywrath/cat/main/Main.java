@@ -33,9 +33,8 @@ public class Main extends JavaPlugin {
 		Events.listen(this, InventoryClickEvent.class, event -> {
 			if(lotterying.contains(event.getWhoClicked())) 
 			{
-				if(event.getSlot() != 0)
-					event.setCancelled(true);
-				else
+				event.setCancelled(true);
+				if(event.getSlot() == 0)
 				{
 					event.getWhoClicked().closeInventory();
 					lotterying.remove(event.getWhoClicked());
