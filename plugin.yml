@@ -1,5 +1,9 @@
 name: CrateAnimationTest
-main: facemywrath.cat.main.Main
+main: facemywrath.slots.main.Main
 author: facemywrath
 version: 1.0
 api-version: 1.13
+commands:
+  slot:
+    usage: /<command>
+    description: Main slots command

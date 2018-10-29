@@ -1,5 +1,6 @@
-package facemywrath.cat.main;
+package facemywrath.slots.util;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -35,7 +36,7 @@ public class ItemCreator {
     }
 
     public ItemCreator name(String name) {
-        meta.setDisplayName(name);
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
         return this;
     }
 

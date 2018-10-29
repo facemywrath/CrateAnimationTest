@@ -1,8 +1,10 @@
-package facemywrath.cat.main;
+package facemywrath.slots.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+import facemywrath.slots.main.Main;
 
 @SuppressWarnings("rawtypes")
 public class Animation<T> {

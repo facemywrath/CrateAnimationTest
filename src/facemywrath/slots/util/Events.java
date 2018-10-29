@@ -1,4 +1,4 @@
-package facemywrath.cat.main;
+package facemywrath.slots.util;
 
 import java.util.function.Consumer;
 

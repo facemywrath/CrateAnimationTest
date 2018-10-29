@@ -1,0 +1,29 @@
+SlotTypes:
+  Lottairie:
+    Filler: CYAN_STAINED_GLASS_PANE
+    Items:
+      1:
+        Material: FILLER
+        Weight: 3
+      2:
+        Material: DIAMOND
+        Weight: 1
+        Display: Diamond
+        Lore:
+          - "You get a diamond"
+        Amount:
+          Min: 1
+          Max: 10
+        Commands:
+          - 'op: minecraft:give <player> minecraft:diamond <amount>'
+    Amounts:
+      1: 100
+      2: 80
+      3: 65
+      4: 40
+      5: 25
+      6: 10
+      7: 6
+      8: 4
+      9: 2
+      10: 1
