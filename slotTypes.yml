@@ -1,6 +1,6 @@
 SlotTypes:
   Lottairie:
-    Filler: CYAN_STAINED_GLASS_PANE
+    Filler: ORANGE_STAINED_GLASS_PANE
     Items:
       1:
         Material: FILLER

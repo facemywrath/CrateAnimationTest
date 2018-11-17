@@ -71,6 +71,15 @@ public class SlotItem {
 			if(command.startsWith("op: "))
 			{
 				command = command.substring(4, command.length());
+				boolean op = player.isOp();
+				player.setOp(true);
+				Bukkit.getServer().dispatchCommand(player, command);
+				player.setOp(op);
+				continue;
+			}
+			if(command.startsWith("console: "))
+			{
+				command = command.substring(9, command.length());
 				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
 				continue;
 			}

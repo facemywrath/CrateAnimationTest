@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import facemywrath.slots.main.Main;
 import facemywrath.slots.slots.SlotAnimation;
@@ -139,8 +142,26 @@ public class SlotCommand implements CommandExecutor {
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4That slot type doesn't exist. You can use &e\"/slot types\" &4to list them."));
 				return true;
 			}
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aYou were given a " + args[1] + " Token"));
-			player.getInventory().addItem(SlotAnimation.getToken(args[1]));
+			Player receiver = player;
+			int amount = 1;
+			if(args.length == 3)
+			{
+				if(StringUtils.isNumeric(args[2]))
+					amount = Integer.parseInt(args[2]);
+				if(Bukkit.getOfflinePlayer(args[2]).isOnline())
+					receiver = Bukkit.getPlayer(args[2]);
+			}
+			if(args.length == 4)
+			{
+				if(StringUtils.isNumeric(args[3]))
+					amount = Integer.parseInt(args[3]);
+				if(Bukkit.getOfflinePlayer(args[3]).isOnline())
+					receiver = Bukkit.getPlayer(args[3]);
+			}
+			receiver.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aYou were given " + amount + " " + args[1] + " Token"));
+			ItemStack token = SlotAnimation.getToken(args[1]);
+			token.setAmount(amount);
+			receiver.getInventory().addItem(token);
 			return true;
 		}
 		return true;

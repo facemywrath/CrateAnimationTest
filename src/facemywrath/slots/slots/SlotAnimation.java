@@ -89,11 +89,11 @@ public class SlotAnimation extends Animation<Inventory> {
 				for(Location loc1 : slots.get(str))
 				{
 					loc1 = loc1.clone();
-					loc1.add(new Vector(0.5 + ThreadLocalRandom.current().nextInt(-100,100)/100.0,0.5 + ThreadLocalRandom.current().nextInt(-100,100)/100.0,0.5 + ThreadLocalRandom.current().nextInt(-100,100)/100.0));
-					loc1.getWorld().spawnParticle(Particle.PORTAL, loc1, 3, 0.1, 0.1, 0.1, 0f);
+					loc1.add(new Vector(0.5 + ThreadLocalRandom.current().nextInt(-50,50)/100.0,0.5 + ThreadLocalRandom.current().nextInt(-50,50)/100.0,0.5 + ThreadLocalRandom.current().nextInt(-50,50)/100.0));
+					loc1.getWorld().spawnParticle(Particle.PORTAL, loc1, 10, 0.1, 0.1, 0.1, 0f);
 				}
 			}
-		}, 10L, 3).setLooping(true, 10L);
+		}, 3L, 3).setLooping(true, 5L);
 		particles.animate(name);
 	}
 
@@ -188,7 +188,11 @@ public class SlotAnimation extends Animation<Inventory> {
 		for(int x = 0; x < 45; x++)
 		{
 			this.addFrame(inv -> {
-				if(!main.slotting.contains(player)) return;
+				if(!main.slotting.contains(player)) {
+					this.stop(inv);
+					player.closeInventory();
+					return;
+				}
 				if(!player.getOpenInventory().equals(inv)) player.openInventory(inv);
 				for(int i = 38; i < 43; i++)
 				{
@@ -204,6 +208,7 @@ public class SlotAnimation extends Animation<Inventory> {
 				}
 				for(int i = 11; i < 16; i++)
 				{
+					
 					inv.setItem(i, inv.getItem(i-9));
 				}
 				for(int i = 2; i < 7; i++)
@@ -217,7 +222,11 @@ public class SlotAnimation extends Animation<Inventory> {
 		for(int x = 0; x < 3; x++)
 		{
 			this.addFrame(inv -> {
-				if(!main.slotting.contains(player)) return;
+				if(!main.slotting.contains(player)) {
+					this.stop(inv);
+					player.closeInventory();
+					return;
+				}
 				for(int i = 20; i < 25; i++)
 				{
 					if(!player.getOpenInventory().equals(inv)) player.openInventory(inv);
@@ -226,7 +235,11 @@ public class SlotAnimation extends Animation<Inventory> {
 				}
 			}, 3L);
 			this.addFrame(inv -> {
-				if(!main.slotting.contains(player)) return;
+				if(!main.slotting.contains(player)) {
+					this.stop(inv);
+					player.closeInventory();
+					return;
+				}
 				for(int i = 20; i < 25; i++)
 				{
 					if(!player.getOpenInventory().equals(inv)) player.openInventory(inv);
@@ -236,7 +249,11 @@ public class SlotAnimation extends Animation<Inventory> {
 		}
 		this.addFrame(inv -> {
 			HashMap<ItemStack, Integer> amounts = new HashMap<>();
-			if(!main.slotting.contains(player)) return;
+			if(!main.slotting.contains(player)) {
+				this.stop(inv);
+				player.closeInventory();
+				return;
+			}
 			for(int i = 20; i < 25; i++)
 			{
 				if(inv.getItem(i) != null && inv.getItem(i).getType() != Material.AIR && !inv.getItem(i).getType().toString().contains("STAINED_GLASS_PANE"))
@@ -261,7 +278,7 @@ public class SlotAnimation extends Animation<Inventory> {
 					si.doCommands(player, amounts.get(item));
 				}
 			}
-			str += amounts.keySet().stream().map(item -> amounts.get(item) + " " + StringUtils.capitaliseAllWords(item.getType().toString().toLowerCase().replaceAll("_", " "))).collect(Collectors.joining(", "));
+			str += amounts.keySet().stream().map(item -> amounts.get(item) + " " + StringUtils.capitaliseAllWords(item.getItemMeta().hasDisplayName()?item.getItemMeta().getDisplayName():item.getType().toString().toLowerCase().replaceAll("_", " "))).collect(Collectors.joining(", "));
 			player.sendMessage(str);
 			main.slotting.remove(player);
 			player.closeInventory();
