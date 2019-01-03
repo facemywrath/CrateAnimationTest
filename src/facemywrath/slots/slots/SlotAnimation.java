@@ -216,7 +216,7 @@ public class SlotAnimation extends Animation<Inventory> {
 					inv.setItem(i, getRandomItem());
 				}
 			}, (long) (speed), 1);
-			speed*=1.04;
+			speed*=1.02;
 		}
 		HashMap<Integer, ItemStack> tempStorage = new HashMap<>();
 		for(int x = 0; x < 3; x++)
